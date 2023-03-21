@@ -1,5 +1,3 @@
-## telegrambot
-
 ## Instalation
 
 ```javascript
