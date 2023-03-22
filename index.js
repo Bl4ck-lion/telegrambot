@@ -10,7 +10,7 @@ const {
   getXnvid,
   getInstagram,
   getImgai
-} = require("./zesshi");
+} = require("./erza");
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
 const { message } = require("telegraf/filters");
@@ -66,37 +66,37 @@ bot.command("tt", (ctx) => {
   getTiktok(ctx);
 });
 
-bot.command("xsearch", (ctx) => {
-  if (ctx.message.text === "/xsearch") {
-    ctx.reply("masukan query");
-    return;
-  }
-  getXsearch(ctx);
-});
+// bot.command("xsearch", (ctx) => {
+//   if (ctx.message.text === "/xsearch") {
+//     ctx.reply("masukan query");
+//     return;
+//   }
+//   getXsearch(ctx);
+// });
 
-bot.command("xnsearch", (ctx) => {
-  if (ctx.message.text === "/xnsearch") {
-    ctx.reply("masukan query");
-    return;
-  }
-  getXnsearch(ctx);
-});
+// bot.command("xnsearch", (ctx) => {
+//   if (ctx.message.text === "/xnsearch") {
+//     ctx.reply("masukan query");
+//     return;
+//   }
+//   getXnsearch(ctx);
+// });
 
-bot.command("xdown", (ctx) => {
-  if (ctx.message.text === "/xdown") {
-    ctx.reply("masukan link");
-    return;
-  }
-  getXvid(ctx);
-});
+// bot.command("xdown", (ctx) => {
+//   if (ctx.message.text === "/xdown") {
+//     ctx.reply("masukan link");
+//     return;
+//   }
+//   getXvid(ctx);
+// });
 
-bot.command("xndown", (ctx) => {
-  if (ctx.message.text === "/xndown") {
-    ctx.reply("masukan link");
-    return;
-  }
-  getXnvid(ctx);
-});
+// bot.command("xndown", (ctx) => {
+//   if (ctx.message.text === "/xndown") {
+//     ctx.reply("masukan link");
+//     return;
+//   }
+//   getXnvid(ctx);
+// });
 
 bot.command("fb", (ctx) => {
   if (ctx.message.text === "/fb") {
