@@ -1,5 +1,3 @@
-## telegrambot
-
 ## Instalation
 
 ```javascript
@@ -16,4 +14,4 @@ Untuk menggunakan bot ini kamu harus mengganti API Key pada [baris ini](https://
 
 ## Demo
 
-[telegram bot](t.me/erzachanbot)
+[telegram bot](https://t.me/erzachanbot)

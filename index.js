@@ -1,4 +1,4 @@
-let {chatgptgg, simichatgg, apikeyTele} = require("./config");
+let { chatgptgg, simichatgg, apikeyTele } = require("./config");
 const {
   getFacebook,
   getPln,
@@ -9,7 +9,7 @@ const {
   getXnsearch,
   getXnvid,
   getInstagram,
-  getImgai
+  getImgai,
 } = require("./erza");
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
@@ -19,12 +19,15 @@ const bot = new Telegraf(apikeyTele);
 
 bot.start((ctx) => {
   ctx.reply(
-    `Halo perkenalkan saya ${ctx.botInfo.first_name} \nketik /menu untuk menampilkan command`
+    `Halo perkenalkan saya ${ctx.botInfo.first_name}👋 \n
+silahkan kirimkan pertanyaan apa saja, ganti mode dengan perintah /chatmode
+
+ketik /menu untuk menampilkan list menu`
   );
 });
 
 bot.command("menu", (ctx) => {
-  bot.telegram.sendMessage(
+    bot.telegram.sendMessage(
     ctx.chat.id,
     `List command: \n
      \n/cekpln cek tagihan listrik \n/yt youtube downloader
@@ -34,13 +37,29 @@ bot.command("menu", (ctx) => {
   );
 });
 
-bot.command('imgai', (ctx) => {
+bot.on('sticker', async ctx => {
+  console.log(ctx.message.sticker.file_id)
+})
+
+//remove background
+// bot.command('rmbg', (ctx) => ctx.reply('kirim gambar dengan caption rmbg'))
+
+// bot.on('photo', async ctx => {
+//   if (ctx.message.caption == 'rmbg') {
+//     let photoid = ctx.message.photo[0].file_id;
+//     let photourl = await bot.telegram.getFileLink(photoid);
+//     let url = `https://api.ibeng.tech/api/maker/rmbg?url=${photourl.href}&apikey=tamvan`
+//     bot.telegram.sendDocument(ctx.chat.id, url )
+//   }
+// })
+
+bot.command("imgai", (ctx) => {
   if (ctx.message.text === "/imgai") {
-    ctx.reply('masukan prompt')
+    ctx.reply("masukan prompt");
     return;
   }
   getImgai(ctx);
-})
+});
 
 bot.command("ig", (ctx) => {
   if (ctx.message.text === "/ig") {
@@ -114,52 +133,54 @@ bot.command("cekpln", (ctx) => {
   getPln(ctx);
 });
 
-bot.command('chatmode', ctx => {
-    if (ctx.message.text == '/chatmode') {
-        ctx.reply('pilih mode openai atau simi\n \n/chatmode simi \n/chatmode openai')
-        return
-    }
-    let pesan = ctx.message.text.split(' ').slice(1).join(' ');
-    if (pesan === 'openai') {
-        chatgptgg = 'benar';
-        simichatgg = 'salah';
-        console.log('ganti ke mode openai')
-    }
-    if (pesan === 'simi') {
-        chatgptgg == 'salah';
-        simichatgg == 'benar';
-        console.log('ganti ke mode simi')
-    }
-    else {
-        ctx.reply('input salah')
-    }
-})
+bot.command("chatmode", (ctx) => {
+  if (ctx.message.text == "/chatmode") {
+    ctx.reply(
+      "ketik mode openai atau simi\n \n/chatmode simi \n/chatmode openai"
+    );
+    return;
+  }
+  let pesan = ctx.message.text.split(" ").slice(1).join(" ");
+  if (pesan == "openai") {
+    chatgptgg = "benar";
+    simichatgg = "salah";
+    ctx.reply("terhubung dengan chatgpt");
+    console.log("ganti ke mode openai");
+  }
+  if (pesan === "simi") {
+    chatgptgg == "salah";
+    simichatgg == "benar";
+    ctx.reply("terhubung dengan simi");
+    console.log("ganti ke mode simi");
+  }
+});
 
 bot.on("text", (ctx) => {
   if (!ctx.message.text.startsWith("/")) {
-    if (chatgptgg == 'benar') {
-    console.log("chatgpt berjalan");
-    let pesan = ctx.message.text;
-    axios
-      .get(`https://api.ibeng.tech/api/info/openai?text=${pesan}&apikey=tamvan`)
-      .then((response) => {
-        let openaires = response.data.data.data;
-        ctx.reply(openaires);
-      });
+    if (chatgptgg == "benar") {
+      console.log("chatgpt berjalan");
+      let pesan = ctx.message.text;
+      axios
+        .get(
+          `https://api.ibeng.tech/api/info/openai?text=${pesan}&apikey=tamvan`
+        )
+        .then((response) => {
+          let openaires = response.data.data.data;
+          ctx.reply(openaires);
+        });
+    } else if (simichatgg == "benar") {
+      console.log("simichat berjalan");
+      let pesan = ctx.message.text;
+      axios
+        .get(
+          `https://api.ibeng.tech/api/fun/simisimi-ind2?text=${pesan}&apikey=tamvan`
+        )
+        .then((response) => {
+          let simi = response.data.result.success;
+          ctx.reply(simi);
+        });
     }
-    else if (simichatgg == 'benar') {
-        console.log("simichat berjalan");
-    let pesan = ctx.message.text;
-    axios
-      .get(
-        `https://api.ibeng.tech/api/fun/simisimi-ind2?text=${pesan}&apikey=tamvan`
-      )
-      .then((response) => {
-        let simi = response.data.result.success;
-        ctx.reply(simi);
-      });
-    }
-  } 
+  }
 });
 
 bot.launch();

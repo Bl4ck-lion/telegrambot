@@ -1,6 +1,6 @@
 //get apikey di botfather
 
-apikeyTele = '';
+apikeyTele = 'Masukan apikey';
 
 // ubah salah satu menjadi true
 

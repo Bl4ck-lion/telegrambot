@@ -19,12 +19,15 @@ function getTiktok(ctx) {
 }
 
 function getImgai(ctx) {
-  let prompt = ctx.message.text.split(' ').slice(1).join(' ')
-  axios.get(`https://api.ibeng.tech/api/info/openaiimg?text=${prompt}&apikey=tamvan`)
-  .then( res => {
-    let data = res.data.data.result;
-    bot.telegram.sendDocument(ctx.chat.id, data)
-  })
+  let prompt = ctx.message.text.split(" ").slice(1).join(" ");
+  axios
+    .get(
+      `https://api.ibeng.tech/api/info/openaiimg?text=${prompt}&apikey=tamvan`
+    )
+    .then((res) => {
+      let data = res.data.data.result;
+      bot.telegram.sendDocument(ctx.chat.id, data);
+    });
 }
 
 function getYoutube(ctx) {
@@ -91,11 +94,7 @@ function getXsearch(ctx) {
           bot.telegram.sendPhoto(ctx.chat.id, data[i].thumb, {
             caption: `title: ${data[1].title} \duration: ${data[1].duration}`,
             reply_markup: {
-              inline_keyboard: [
-                [
-                    { text: "🌐", url: data[i].url }
-                ]
-            ],
+              inline_keyboard: [[{ text: "🌐", url: data[i].url }]],
             },
           });
         }
@@ -106,32 +105,28 @@ function getXsearch(ctx) {
 }
 
 function getXnsearch(ctx) {
-    let query = ctx.message.text.split(" ").slice(1).join(" ");
-    try {
-      axios
-        .get(
-            `https://api.ibeng.tech/api/search/xnxx?query=${query}&apikey=tamvan`
-        )
-        .then((res) => {
-          let data = res.data.result;
-          for (let i = 0; i < data.length; i++) {
-            bot.telegram.sendPhoto(ctx.chat.id, data[i].thumb, {
-              caption: `title: ${data[1].title} \nduration: ${data[1].duration}`,
-              reply_markup: {
-                inline_keyboard: [
-                  [
-                      { text: "🌐", url: data[i].link }
-                  ]
-              ],
-              },
-            });
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
+  let query = ctx.message.text.split(" ").slice(1).join(" ");
+  try {
+    axios
+      .get(
+        `https://api.ibeng.tech/api/search/xnxx?query=${query}&apikey=tamvan`
+      )
+      .then((res) => {
+        let data = res.data.result;
+        for (let i = 0; i < data.length; i++) {
+          bot.telegram.sendPhoto(ctx.chat.id, data[i].thumb, {
+            caption: `title: ${data[1].title} \nduration: ${data[1].duration}`,
+            reply_markup: {
+              inline_keyboard: [[{ text: "🌐", url: data[i].link }]],
+            },
+          });
+        }
+      });
+  } catch (error) {
+    console.log(error);
   }
-  
+}
+
 function getXvid(ctx) {
   let link = ctx.message.text.split(" ").slice(1).join(" ");
   axios
@@ -152,12 +147,10 @@ function getXvid(ctx) {
 function getXnvid(ctx) {
   let link = ctx.message.text.split(" ").slice(1).join(" ");
   axios
-    .get(
-      `https://api.ibeng.tech/api/search/xnxxdl?url=${link}&apikey=tamvan`
-    )
+    .get(`https://api.ibeng.tech/api/search/xnxxdl?url=${link}&apikey=tamvan`)
     .then((res) => {
       let data = res.data.result;
-      console.log(data)
+      console.log(data);
       try {
         bot.telegram.sendVideo(ctx.chat.id, data.url, {
           caption: `judul: ${data.title} \nviews: ${data.views} \nquality: ${data.quality}`,
@@ -178,5 +171,5 @@ module.exports = {
   getXnsearch,
   getXnvid,
   getInstagram,
-  getImgai
+  getImgai,
 };
