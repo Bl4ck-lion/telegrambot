@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Telegraf } = require("telegraf");
-const { apikeyTele } = require("./config");
+const { apikeyTele } = require("./settings/config");
 
 const bot = new Telegraf(apikeyTele);
 

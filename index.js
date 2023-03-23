@@ -1,4 +1,10 @@
-let { chatgptgg, simichatgg, apikeyTele } = require("./config");
+let {
+  chatgptgg,
+  simichatgg,
+  apikeyTele,
+  personality_ai,
+} = require("./settings/config");
+const { adminname } = require("./settings/admin");
 const {
   getFacebook,
   getPln,
@@ -27,7 +33,7 @@ ketik /menu untuk menampilkan list menu`
 });
 
 bot.command("menu", (ctx) => {
-    bot.telegram.sendMessage(
+  bot.telegram.sendMessage(
     ctx.chat.id,
     `List command: \n
      \n/cekpln cek tagihan listrik \n/yt youtube downloader
@@ -37,9 +43,9 @@ bot.command("menu", (ctx) => {
   );
 });
 
-bot.on('sticker', async ctx => {
-  console.log(ctx.message.sticker.file_id)
-})
+bot.on("sticker", async (ctx) => {
+  console.log(ctx.chat, ctx.message);
+});
 
 //remove background
 // bot.command('rmbg', (ctx) => ctx.reply('kirim gambar dengan caption rmbg'))
@@ -159,7 +165,8 @@ bot.on("text", (ctx) => {
   if (!ctx.message.text.startsWith("/")) {
     if (chatgptgg == "benar") {
       console.log("chatgpt berjalan");
-      let pesan = ctx.message.text;
+      let pesan = `'${personality_ai}, nama saya ${ctx.chat.first_name}, kamu memiliki pacar bernama ${adminname}' 
+      \npertanyaan:${ctx.message.text}?`;
       axios
         .get(
           `https://api.ibeng.tech/api/info/openai?text=${pesan}&apikey=tamvan`
