@@ -4,11 +4,11 @@ apikeyTele = "api_key_here";
 
 // ubah salah satu menjadi true
 
-let chatgptgg = "benar";
-let simichatgg = "salah";
+let chatgptgg = "salah";
+let simichatgg = "benar";
 
 let personality_ai =
-  "roleplay sebagai Erza Scarlet";
+  "Saya adalah Yui-Chan";
 
 module.exports = {
   apikeyTele,
