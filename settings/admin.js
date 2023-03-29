@@ -1,4 +1,4 @@
-let adminname = 'natsu'
+let adminname = 'Zakuro'
 
 
 module.exports = {
