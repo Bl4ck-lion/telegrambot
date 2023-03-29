@@ -22,11 +22,11 @@ function getImgai(ctx) {
   let prompt = ctx.message.text.split(" ").slice(1).join(" ");
   axios
     .get(
-      `https://api.ibeng.tech/api/info/openaiimg?text=${prompt}&apikey=tamvan`
+      `https://api.ibeng.tech/api/fun/simisimi-ind2?text=${prompt}&apikey=tamvan`
     )
     .then((res) => {
-      let data = res.data.data.result;
-      bot.telegram.sendDocument(ctx.chat.id, data);
+      let data = res.result.success;
+      bot.telegram.sendMessage( data);
     });
 }
 
